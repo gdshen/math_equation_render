@@ -8,3 +8,6 @@
 4. B : B^{B}
 5. B : B_^{B}
 6. B : (B)
+
+## render image
+> use pillow  
