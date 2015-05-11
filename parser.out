@@ -1,0 +1,767 @@
+Created by PLY version 3.6 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    BACKSLASH
+
+Grammar
+
+Rule 0     S' -> s
+Rule 1     s -> DOLLAR DOLLAR b DOLLAR DOLLAR
+Rule 2     b -> t b
+Rule 3     b -> t
+Rule 4     t -> r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+Rule 5     t -> r CONJUNCTION LSETBRACKET b RSETBRACKET
+Rule 6     t -> r UNDERSCORE LSETBRACKET b RSETBRACKET
+Rule 7     t -> INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+Rule 8     t -> SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+Rule 9     t -> r
+Rule 10    r -> NAME
+Rule 11    r -> NUMBER
+Rule 12    r -> SPACE
+Rule 13    r -> LPAREN b RPAREN
+
+Terminals, with rules where they appear
+
+BACKSLASH            : 
+CONJUNCTION          : 4 5
+DOLLAR               : 1 1 1 1
+INT                  : 7
+LPAREN               : 13
+LSETBRACKET          : 4 4 5 6 7 7 7 8 8 8
+NAME                 : 10
+NUMBER               : 11
+RPAREN               : 13
+RSETBRACKET          : 4 4 5 6 7 7 7 8 8 8
+SPACE                : 12
+SUM                  : 8
+UNDERSCORE           : 4 6
+error                : 
+
+Nonterminals, with rules where they appear
+
+b                    : 1 2 4 4 5 6 7 7 7 8 8 8 13
+r                    : 4 5 6 9
+s                    : 0
+t                    : 2 3
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . s
+    (1) s -> . DOLLAR DOLLAR b DOLLAR DOLLAR
+
+    DOLLAR          shift and go to state 2
+
+    s                              shift and go to state 1
+
+state 1
+
+    (0) S' -> s .
+
+
+
+state 2
+
+    (1) s -> DOLLAR . DOLLAR b DOLLAR DOLLAR
+
+    DOLLAR          shift and go to state 3
+
+
+state 3
+
+    (1) s -> DOLLAR DOLLAR . b DOLLAR DOLLAR
+    (2) b -> . t b
+    (3) b -> . t
+    (4) t -> . r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (5) t -> . r CONJUNCTION LSETBRACKET b RSETBRACKET
+    (6) t -> . r UNDERSCORE LSETBRACKET b RSETBRACKET
+    (7) t -> . INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (8) t -> . SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (9) t -> . r
+    (10) r -> . NAME
+    (11) r -> . NUMBER
+    (12) r -> . SPACE
+    (13) r -> . LPAREN b RPAREN
+
+    INT             shift and go to state 5
+    SUM             shift and go to state 7
+    NAME            shift and go to state 9
+    NUMBER          shift and go to state 11
+    SPACE           shift and go to state 4
+    LPAREN          shift and go to state 8
+
+    t                              shift and go to state 6
+    r                              shift and go to state 12
+    b                              shift and go to state 10
+
+state 4
+
+    (12) r -> SPACE .
+
+    UNDERSCORE      reduce using rule 12 (r -> SPACE .)
+    CONJUNCTION     reduce using rule 12 (r -> SPACE .)
+    INT             reduce using rule 12 (r -> SPACE .)
+    SUM             reduce using rule 12 (r -> SPACE .)
+    NAME            reduce using rule 12 (r -> SPACE .)
+    NUMBER          reduce using rule 12 (r -> SPACE .)
+    SPACE           reduce using rule 12 (r -> SPACE .)
+    LPAREN          reduce using rule 12 (r -> SPACE .)
+    RSETBRACKET     reduce using rule 12 (r -> SPACE .)
+    DOLLAR          reduce using rule 12 (r -> SPACE .)
+    RPAREN          reduce using rule 12 (r -> SPACE .)
+
+
+state 5
+
+    (7) t -> INT . LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+
+    LSETBRACKET     shift and go to state 13
+
+
+state 6
+
+    (2) b -> t . b
+    (3) b -> t .
+    (2) b -> . t b
+    (3) b -> . t
+    (4) t -> . r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (5) t -> . r CONJUNCTION LSETBRACKET b RSETBRACKET
+    (6) t -> . r UNDERSCORE LSETBRACKET b RSETBRACKET
+    (7) t -> . INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (8) t -> . SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (9) t -> . r
+    (10) r -> . NAME
+    (11) r -> . NUMBER
+    (12) r -> . SPACE
+    (13) r -> . LPAREN b RPAREN
+
+    RSETBRACKET     reduce using rule 3 (b -> t .)
+    DOLLAR          reduce using rule 3 (b -> t .)
+    RPAREN          reduce using rule 3 (b -> t .)
+    INT             shift and go to state 5
+    SUM             shift and go to state 7
+    NAME            shift and go to state 9
+    NUMBER          shift and go to state 11
+    SPACE           shift and go to state 4
+    LPAREN          shift and go to state 8
+
+    t                              shift and go to state 6
+    r                              shift and go to state 12
+    b                              shift and go to state 14
+
+state 7
+
+    (8) t -> SUM . LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+
+    LSETBRACKET     shift and go to state 15
+
+
+state 8
+
+    (13) r -> LPAREN . b RPAREN
+    (2) b -> . t b
+    (3) b -> . t
+    (4) t -> . r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (5) t -> . r CONJUNCTION LSETBRACKET b RSETBRACKET
+    (6) t -> . r UNDERSCORE LSETBRACKET b RSETBRACKET
+    (7) t -> . INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (8) t -> . SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (9) t -> . r
+    (10) r -> . NAME
+    (11) r -> . NUMBER
+    (12) r -> . SPACE
+    (13) r -> . LPAREN b RPAREN
+
+    INT             shift and go to state 5
+    SUM             shift and go to state 7
+    NAME            shift and go to state 9
+    NUMBER          shift and go to state 11
+    SPACE           shift and go to state 4
+    LPAREN          shift and go to state 8
+
+    t                              shift and go to state 6
+    r                              shift and go to state 12
+    b                              shift and go to state 16
+
+state 9
+
+    (10) r -> NAME .
+
+    UNDERSCORE      reduce using rule 10 (r -> NAME .)
+    CONJUNCTION     reduce using rule 10 (r -> NAME .)
+    INT             reduce using rule 10 (r -> NAME .)
+    SUM             reduce using rule 10 (r -> NAME .)
+    NAME            reduce using rule 10 (r -> NAME .)
+    NUMBER          reduce using rule 10 (r -> NAME .)
+    SPACE           reduce using rule 10 (r -> NAME .)
+    LPAREN          reduce using rule 10 (r -> NAME .)
+    RSETBRACKET     reduce using rule 10 (r -> NAME .)
+    DOLLAR          reduce using rule 10 (r -> NAME .)
+    RPAREN          reduce using rule 10 (r -> NAME .)
+
+
+state 10
+
+    (1) s -> DOLLAR DOLLAR b . DOLLAR DOLLAR
+
+    DOLLAR          shift and go to state 17
+
+
+state 11
+
+    (11) r -> NUMBER .
+
+    UNDERSCORE      reduce using rule 11 (r -> NUMBER .)
+    CONJUNCTION     reduce using rule 11 (r -> NUMBER .)
+    INT             reduce using rule 11 (r -> NUMBER .)
+    SUM             reduce using rule 11 (r -> NUMBER .)
+    NAME            reduce using rule 11 (r -> NUMBER .)
+    NUMBER          reduce using rule 11 (r -> NUMBER .)
+    SPACE           reduce using rule 11 (r -> NUMBER .)
+    LPAREN          reduce using rule 11 (r -> NUMBER .)
+    RSETBRACKET     reduce using rule 11 (r -> NUMBER .)
+    DOLLAR          reduce using rule 11 (r -> NUMBER .)
+    RPAREN          reduce using rule 11 (r -> NUMBER .)
+
+
+state 12
+
+    (4) t -> r . UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (5) t -> r . CONJUNCTION LSETBRACKET b RSETBRACKET
+    (6) t -> r . UNDERSCORE LSETBRACKET b RSETBRACKET
+    (9) t -> r .
+
+    UNDERSCORE      shift and go to state 19
+    CONJUNCTION     shift and go to state 18
+    INT             reduce using rule 9 (t -> r .)
+    SUM             reduce using rule 9 (t -> r .)
+    NAME            reduce using rule 9 (t -> r .)
+    NUMBER          reduce using rule 9 (t -> r .)
+    SPACE           reduce using rule 9 (t -> r .)
+    LPAREN          reduce using rule 9 (t -> r .)
+    RSETBRACKET     reduce using rule 9 (t -> r .)
+    DOLLAR          reduce using rule 9 (t -> r .)
+    RPAREN          reduce using rule 9 (t -> r .)
+
+
+state 13
+
+    (7) t -> INT LSETBRACKET . b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (2) b -> . t b
+    (3) b -> . t
+    (4) t -> . r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (5) t -> . r CONJUNCTION LSETBRACKET b RSETBRACKET
+    (6) t -> . r UNDERSCORE LSETBRACKET b RSETBRACKET
+    (7) t -> . INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (8) t -> . SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (9) t -> . r
+    (10) r -> . NAME
+    (11) r -> . NUMBER
+    (12) r -> . SPACE
+    (13) r -> . LPAREN b RPAREN
+
+    INT             shift and go to state 5
+    SUM             shift and go to state 7
+    NAME            shift and go to state 9
+    NUMBER          shift and go to state 11
+    SPACE           shift and go to state 4
+    LPAREN          shift and go to state 8
+
+    t                              shift and go to state 6
+    r                              shift and go to state 12
+    b                              shift and go to state 20
+
+state 14
+
+    (2) b -> t b .
+
+    RSETBRACKET     reduce using rule 2 (b -> t b .)
+    DOLLAR          reduce using rule 2 (b -> t b .)
+    RPAREN          reduce using rule 2 (b -> t b .)
+
+
+state 15
+
+    (8) t -> SUM LSETBRACKET . b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (2) b -> . t b
+    (3) b -> . t
+    (4) t -> . r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (5) t -> . r CONJUNCTION LSETBRACKET b RSETBRACKET
+    (6) t -> . r UNDERSCORE LSETBRACKET b RSETBRACKET
+    (7) t -> . INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (8) t -> . SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (9) t -> . r
+    (10) r -> . NAME
+    (11) r -> . NUMBER
+    (12) r -> . SPACE
+    (13) r -> . LPAREN b RPAREN
+
+    INT             shift and go to state 5
+    SUM             shift and go to state 7
+    NAME            shift and go to state 9
+    NUMBER          shift and go to state 11
+    SPACE           shift and go to state 4
+    LPAREN          shift and go to state 8
+
+    t                              shift and go to state 6
+    r                              shift and go to state 12
+    b                              shift and go to state 21
+
+state 16
+
+    (13) r -> LPAREN b . RPAREN
+
+    RPAREN          shift and go to state 22
+
+
+state 17
+
+    (1) s -> DOLLAR DOLLAR b DOLLAR . DOLLAR
+
+    DOLLAR          shift and go to state 23
+
+
+state 18
+
+    (5) t -> r CONJUNCTION . LSETBRACKET b RSETBRACKET
+
+    LSETBRACKET     shift and go to state 24
+
+
+state 19
+
+    (4) t -> r UNDERSCORE . CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (6) t -> r UNDERSCORE . LSETBRACKET b RSETBRACKET
+
+    CONJUNCTION     shift and go to state 26
+    LSETBRACKET     shift and go to state 25
+
+
+state 20
+
+    (7) t -> INT LSETBRACKET b . RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+
+    RSETBRACKET     shift and go to state 27
+
+
+state 21
+
+    (8) t -> SUM LSETBRACKET b . RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+
+    RSETBRACKET     shift and go to state 28
+
+
+state 22
+
+    (13) r -> LPAREN b RPAREN .
+
+    UNDERSCORE      reduce using rule 13 (r -> LPAREN b RPAREN .)
+    CONJUNCTION     reduce using rule 13 (r -> LPAREN b RPAREN .)
+    INT             reduce using rule 13 (r -> LPAREN b RPAREN .)
+    SUM             reduce using rule 13 (r -> LPAREN b RPAREN .)
+    NAME            reduce using rule 13 (r -> LPAREN b RPAREN .)
+    NUMBER          reduce using rule 13 (r -> LPAREN b RPAREN .)
+    SPACE           reduce using rule 13 (r -> LPAREN b RPAREN .)
+    LPAREN          reduce using rule 13 (r -> LPAREN b RPAREN .)
+    RSETBRACKET     reduce using rule 13 (r -> LPAREN b RPAREN .)
+    DOLLAR          reduce using rule 13 (r -> LPAREN b RPAREN .)
+    RPAREN          reduce using rule 13 (r -> LPAREN b RPAREN .)
+
+
+state 23
+
+    (1) s -> DOLLAR DOLLAR b DOLLAR DOLLAR .
+
+    $end            reduce using rule 1 (s -> DOLLAR DOLLAR b DOLLAR DOLLAR .)
+
+
+state 24
+
+    (5) t -> r CONJUNCTION LSETBRACKET . b RSETBRACKET
+    (2) b -> . t b
+    (3) b -> . t
+    (4) t -> . r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (5) t -> . r CONJUNCTION LSETBRACKET b RSETBRACKET
+    (6) t -> . r UNDERSCORE LSETBRACKET b RSETBRACKET
+    (7) t -> . INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (8) t -> . SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (9) t -> . r
+    (10) r -> . NAME
+    (11) r -> . NUMBER
+    (12) r -> . SPACE
+    (13) r -> . LPAREN b RPAREN
+
+    INT             shift and go to state 5
+    SUM             shift and go to state 7
+    NAME            shift and go to state 9
+    NUMBER          shift and go to state 11
+    SPACE           shift and go to state 4
+    LPAREN          shift and go to state 8
+
+    t                              shift and go to state 6
+    r                              shift and go to state 12
+    b                              shift and go to state 29
+
+state 25
+
+    (6) t -> r UNDERSCORE LSETBRACKET . b RSETBRACKET
+    (2) b -> . t b
+    (3) b -> . t
+    (4) t -> . r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (5) t -> . r CONJUNCTION LSETBRACKET b RSETBRACKET
+    (6) t -> . r UNDERSCORE LSETBRACKET b RSETBRACKET
+    (7) t -> . INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (8) t -> . SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (9) t -> . r
+    (10) r -> . NAME
+    (11) r -> . NUMBER
+    (12) r -> . SPACE
+    (13) r -> . LPAREN b RPAREN
+
+    INT             shift and go to state 5
+    SUM             shift and go to state 7
+    NAME            shift and go to state 9
+    NUMBER          shift and go to state 11
+    SPACE           shift and go to state 4
+    LPAREN          shift and go to state 8
+
+    t                              shift and go to state 6
+    r                              shift and go to state 12
+    b                              shift and go to state 30
+
+state 26
+
+    (4) t -> r UNDERSCORE CONJUNCTION . LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+
+    LSETBRACKET     shift and go to state 31
+
+
+state 27
+
+    (7) t -> INT LSETBRACKET b RSETBRACKET . LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+
+    LSETBRACKET     shift and go to state 32
+
+
+state 28
+
+    (8) t -> SUM LSETBRACKET b RSETBRACKET . LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+
+    LSETBRACKET     shift and go to state 33
+
+
+state 29
+
+    (5) t -> r CONJUNCTION LSETBRACKET b . RSETBRACKET
+
+    RSETBRACKET     shift and go to state 34
+
+
+state 30
+
+    (6) t -> r UNDERSCORE LSETBRACKET b . RSETBRACKET
+
+    RSETBRACKET     shift and go to state 35
+
+
+state 31
+
+    (4) t -> r UNDERSCORE CONJUNCTION LSETBRACKET . b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (2) b -> . t b
+    (3) b -> . t
+    (4) t -> . r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (5) t -> . r CONJUNCTION LSETBRACKET b RSETBRACKET
+    (6) t -> . r UNDERSCORE LSETBRACKET b RSETBRACKET
+    (7) t -> . INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (8) t -> . SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (9) t -> . r
+    (10) r -> . NAME
+    (11) r -> . NUMBER
+    (12) r -> . SPACE
+    (13) r -> . LPAREN b RPAREN
+
+    INT             shift and go to state 5
+    SUM             shift and go to state 7
+    NAME            shift and go to state 9
+    NUMBER          shift and go to state 11
+    SPACE           shift and go to state 4
+    LPAREN          shift and go to state 8
+
+    t                              shift and go to state 6
+    r                              shift and go to state 12
+    b                              shift and go to state 36
+
+state 32
+
+    (7) t -> INT LSETBRACKET b RSETBRACKET LSETBRACKET . b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (2) b -> . t b
+    (3) b -> . t
+    (4) t -> . r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (5) t -> . r CONJUNCTION LSETBRACKET b RSETBRACKET
+    (6) t -> . r UNDERSCORE LSETBRACKET b RSETBRACKET
+    (7) t -> . INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (8) t -> . SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (9) t -> . r
+    (10) r -> . NAME
+    (11) r -> . NUMBER
+    (12) r -> . SPACE
+    (13) r -> . LPAREN b RPAREN
+
+    INT             shift and go to state 5
+    SUM             shift and go to state 7
+    NAME            shift and go to state 9
+    NUMBER          shift and go to state 11
+    SPACE           shift and go to state 4
+    LPAREN          shift and go to state 8
+
+    t                              shift and go to state 6
+    r                              shift and go to state 12
+    b                              shift and go to state 37
+
+state 33
+
+    (8) t -> SUM LSETBRACKET b RSETBRACKET LSETBRACKET . b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (2) b -> . t b
+    (3) b -> . t
+    (4) t -> . r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (5) t -> . r CONJUNCTION LSETBRACKET b RSETBRACKET
+    (6) t -> . r UNDERSCORE LSETBRACKET b RSETBRACKET
+    (7) t -> . INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (8) t -> . SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (9) t -> . r
+    (10) r -> . NAME
+    (11) r -> . NUMBER
+    (12) r -> . SPACE
+    (13) r -> . LPAREN b RPAREN
+
+    INT             shift and go to state 5
+    SUM             shift and go to state 7
+    NAME            shift and go to state 9
+    NUMBER          shift and go to state 11
+    SPACE           shift and go to state 4
+    LPAREN          shift and go to state 8
+
+    t                              shift and go to state 6
+    r                              shift and go to state 12
+    b                              shift and go to state 38
+
+state 34
+
+    (5) t -> r CONJUNCTION LSETBRACKET b RSETBRACKET .
+
+    INT             reduce using rule 5 (t -> r CONJUNCTION LSETBRACKET b RSETBRACKET .)
+    SUM             reduce using rule 5 (t -> r CONJUNCTION LSETBRACKET b RSETBRACKET .)
+    NAME            reduce using rule 5 (t -> r CONJUNCTION LSETBRACKET b RSETBRACKET .)
+    NUMBER          reduce using rule 5 (t -> r CONJUNCTION LSETBRACKET b RSETBRACKET .)
+    SPACE           reduce using rule 5 (t -> r CONJUNCTION LSETBRACKET b RSETBRACKET .)
+    LPAREN          reduce using rule 5 (t -> r CONJUNCTION LSETBRACKET b RSETBRACKET .)
+    RSETBRACKET     reduce using rule 5 (t -> r CONJUNCTION LSETBRACKET b RSETBRACKET .)
+    DOLLAR          reduce using rule 5 (t -> r CONJUNCTION LSETBRACKET b RSETBRACKET .)
+    RPAREN          reduce using rule 5 (t -> r CONJUNCTION LSETBRACKET b RSETBRACKET .)
+
+
+state 35
+
+    (6) t -> r UNDERSCORE LSETBRACKET b RSETBRACKET .
+
+    INT             reduce using rule 6 (t -> r UNDERSCORE LSETBRACKET b RSETBRACKET .)
+    SUM             reduce using rule 6 (t -> r UNDERSCORE LSETBRACKET b RSETBRACKET .)
+    NAME            reduce using rule 6 (t -> r UNDERSCORE LSETBRACKET b RSETBRACKET .)
+    NUMBER          reduce using rule 6 (t -> r UNDERSCORE LSETBRACKET b RSETBRACKET .)
+    SPACE           reduce using rule 6 (t -> r UNDERSCORE LSETBRACKET b RSETBRACKET .)
+    LPAREN          reduce using rule 6 (t -> r UNDERSCORE LSETBRACKET b RSETBRACKET .)
+    RSETBRACKET     reduce using rule 6 (t -> r UNDERSCORE LSETBRACKET b RSETBRACKET .)
+    DOLLAR          reduce using rule 6 (t -> r UNDERSCORE LSETBRACKET b RSETBRACKET .)
+    RPAREN          reduce using rule 6 (t -> r UNDERSCORE LSETBRACKET b RSETBRACKET .)
+
+
+state 36
+
+    (4) t -> r UNDERSCORE CONJUNCTION LSETBRACKET b . RSETBRACKET LSETBRACKET b RSETBRACKET
+
+    RSETBRACKET     shift and go to state 39
+
+
+state 37
+
+    (7) t -> INT LSETBRACKET b RSETBRACKET LSETBRACKET b . RSETBRACKET LSETBRACKET b RSETBRACKET
+
+    RSETBRACKET     shift and go to state 40
+
+
+state 38
+
+    (8) t -> SUM LSETBRACKET b RSETBRACKET LSETBRACKET b . RSETBRACKET LSETBRACKET b RSETBRACKET
+
+    RSETBRACKET     shift and go to state 41
+
+
+state 39
+
+    (4) t -> r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET . LSETBRACKET b RSETBRACKET
+
+    LSETBRACKET     shift and go to state 42
+
+
+state 40
+
+    (7) t -> INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET . LSETBRACKET b RSETBRACKET
+
+    LSETBRACKET     shift and go to state 43
+
+
+state 41
+
+    (8) t -> SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET . LSETBRACKET b RSETBRACKET
+
+    LSETBRACKET     shift and go to state 44
+
+
+state 42
+
+    (4) t -> r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET . b RSETBRACKET
+    (2) b -> . t b
+    (3) b -> . t
+    (4) t -> . r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (5) t -> . r CONJUNCTION LSETBRACKET b RSETBRACKET
+    (6) t -> . r UNDERSCORE LSETBRACKET b RSETBRACKET
+    (7) t -> . INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (8) t -> . SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (9) t -> . r
+    (10) r -> . NAME
+    (11) r -> . NUMBER
+    (12) r -> . SPACE
+    (13) r -> . LPAREN b RPAREN
+
+    INT             shift and go to state 5
+    SUM             shift and go to state 7
+    NAME            shift and go to state 9
+    NUMBER          shift and go to state 11
+    SPACE           shift and go to state 4
+    LPAREN          shift and go to state 8
+
+    t                              shift and go to state 6
+    r                              shift and go to state 12
+    b                              shift and go to state 45
+
+state 43
+
+    (7) t -> INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET . b RSETBRACKET
+    (2) b -> . t b
+    (3) b -> . t
+    (4) t -> . r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (5) t -> . r CONJUNCTION LSETBRACKET b RSETBRACKET
+    (6) t -> . r UNDERSCORE LSETBRACKET b RSETBRACKET
+    (7) t -> . INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (8) t -> . SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (9) t -> . r
+    (10) r -> . NAME
+    (11) r -> . NUMBER
+    (12) r -> . SPACE
+    (13) r -> . LPAREN b RPAREN
+
+    INT             shift and go to state 5
+    SUM             shift and go to state 7
+    NAME            shift and go to state 9
+    NUMBER          shift and go to state 11
+    SPACE           shift and go to state 4
+    LPAREN          shift and go to state 8
+
+    t                              shift and go to state 6
+    r                              shift and go to state 12
+    b                              shift and go to state 46
+
+state 44
+
+    (8) t -> SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET . b RSETBRACKET
+    (2) b -> . t b
+    (3) b -> . t
+    (4) t -> . r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (5) t -> . r CONJUNCTION LSETBRACKET b RSETBRACKET
+    (6) t -> . r UNDERSCORE LSETBRACKET b RSETBRACKET
+    (7) t -> . INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (8) t -> . SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET
+    (9) t -> . r
+    (10) r -> . NAME
+    (11) r -> . NUMBER
+    (12) r -> . SPACE
+    (13) r -> . LPAREN b RPAREN
+
+    INT             shift and go to state 5
+    SUM             shift and go to state 7
+    NAME            shift and go to state 9
+    NUMBER          shift and go to state 11
+    SPACE           shift and go to state 4
+    LPAREN          shift and go to state 8
+
+    t                              shift and go to state 6
+    r                              shift and go to state 12
+    b                              shift and go to state 47
+
+state 45
+
+    (4) t -> r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b . RSETBRACKET
+
+    RSETBRACKET     shift and go to state 48
+
+
+state 46
+
+    (7) t -> INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b . RSETBRACKET
+
+    RSETBRACKET     shift and go to state 49
+
+
+state 47
+
+    (8) t -> SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b . RSETBRACKET
+
+    RSETBRACKET     shift and go to state 50
+
+
+state 48
+
+    (4) t -> r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .
+
+    INT             reduce using rule 4 (t -> r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+    SUM             reduce using rule 4 (t -> r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+    NAME            reduce using rule 4 (t -> r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+    NUMBER          reduce using rule 4 (t -> r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+    SPACE           reduce using rule 4 (t -> r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+    LPAREN          reduce using rule 4 (t -> r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+    RSETBRACKET     reduce using rule 4 (t -> r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+    DOLLAR          reduce using rule 4 (t -> r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+    RPAREN          reduce using rule 4 (t -> r UNDERSCORE CONJUNCTION LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+
+
+state 49
+
+    (7) t -> INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .
+
+    INT             reduce using rule 7 (t -> INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+    SUM             reduce using rule 7 (t -> INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+    NAME            reduce using rule 7 (t -> INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+    NUMBER          reduce using rule 7 (t -> INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+    SPACE           reduce using rule 7 (t -> INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+    LPAREN          reduce using rule 7 (t -> INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+    RSETBRACKET     reduce using rule 7 (t -> INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+    DOLLAR          reduce using rule 7 (t -> INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+    RPAREN          reduce using rule 7 (t -> INT LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+
+
+state 50
+
+    (8) t -> SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .
+
+    INT             reduce using rule 8 (t -> SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+    SUM             reduce using rule 8 (t -> SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+    NAME            reduce using rule 8 (t -> SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+    NUMBER          reduce using rule 8 (t -> SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+    SPACE           reduce using rule 8 (t -> SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+    LPAREN          reduce using rule 8 (t -> SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+    RSETBRACKET     reduce using rule 8 (t -> SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+    DOLLAR          reduce using rule 8 (t -> SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+    RPAREN          reduce using rule 8 (t -> SUM LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET LSETBRACKET b RSETBRACKET .)
+
