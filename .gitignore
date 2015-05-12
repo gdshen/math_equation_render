@@ -2,4 +2,6 @@ parser.out
 parsetab.py
 __pycache__
 calc/cacl/__pycache__
-typeset0*.txt
+typeset01.txt
+typeset02.txt
+typeset03.txt
