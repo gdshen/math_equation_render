@@ -1,13 +1,32 @@
-from PIL import Image, ImageDraw, ImageFont
+""" 积分号 option + b ∫
+    求和号 option + w ∑
+"""
+from PIL import Image, ImageFont, ImageDraw
 
-im = Image.new("L", (500, 500), 255)
-draw = ImageDraw.Draw(im)
-fontC = ImageFont.truetype("STIXGeneralItalic.otf", 50)
-fontN = ImageFont.truetype("STIXGeneral.otf", 30)
-# fontC = ImageFont.truetype("Consolas.ttf",50)
-# string = 'abcdefghigklmnopqrstuvwxyz'
-number = '2'
-string = 'a = b + c'
-draw.text((100, 100), string, font=fontC)
-draw.text((125, 100), number, font=fontN)
-im.show()
+
+class Draw:
+    filename = ''
+    font_name = 'STIXGeneral.otf'  # 'Courier.dfont'
+    character_size = 50
+
+    im = Image.new('L', (500, 500), 255)
+    draw = ImageDraw.Draw(im)
+
+    def __init__(self, filename):
+        super().__init__()
+        with open(filename) as f:
+            data = f.readlines()
+            for line in data:
+                left, height, size, c = line.split(',')
+                c = c[:-1]
+                if c == '#int':
+                    c = '∫'
+                if c == '#sum':
+                    c = '∑'
+                font = ImageFont.truetype(self.font_name, size=int(size))
+                self.draw.text((int(left), int(height)), c, font=font)
+            self.im.show()
+            self.im.close()
+
+if __name__ == '__main__':
+    d = Draw('typeset01.txt')

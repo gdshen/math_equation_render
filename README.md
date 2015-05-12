@@ -10,4 +10,10 @@
 6. B : (B)
 
 ## render image
-> use pillow  
+> use pillow draw module  
+1. read date from user input
+2. split user input
+3. draw data in picture 
+4. read until EOF
+5. read from file(use readlines)
+6. wrap draw as class
