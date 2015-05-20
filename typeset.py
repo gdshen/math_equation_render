@@ -29,4 +29,4 @@ class Draw:
             self.im.close()
 
 if __name__ == '__main__':
-    d = Draw('typeset01.txt')
+    d = Draw('./simple/sample04.txt')

@@ -35,7 +35,7 @@ expression_type = ['p_s_b', 'p_b_tb', 'p_b_t', 'p_b_up_down', 'p_t_up', 'p_b_dow
 
 
 class Symbol:
-    def __init__(self, size=50.0, symbol_type="terminal", value=None):
+    def __init__(self, size=100.0, symbol_type="terminal", value=None):
         self.size = size
         self.width = 0
         self.x = 0
@@ -46,29 +46,45 @@ class Symbol:
         self.type = symbol_type
 
     def __str__(self, *args, **kwargs):
-        return "size:{0} x:{1} y:{2} value:{3} type:{4} width:{5}".format(self.size, self.x, self.y,
+        return "size:{0} x:{1} y:{2} value:{3} type:{4} width:{5}".format(self.size, self.x, 500-self.y,
                                                                           self.value, self.type, self.width)
 
 
 def shrink_size(size):
+    return 0.8 * size
+
+
+def shrink_y_up(y):
+    return 0.2 * y
+
+def shrink_y_down(y):
+    return 0.4 * y
+
+
+def shrink_width(width):
+    return 0.5 * width
+
+# todo 针对数字单独做处理
+def shrink_number(size):
     return 0.7 * size
 
 
-def shrink_y(y):
-    return 0.7 * y
+l = []
 
 
 def trans_print(s):
+    global l
     # print(s)
     if len(s.child) != 0:
         for i in range(len(s.child)):
             trans_print(s.child[i])
     else:
-        # print(s)
+        l.append([int(s.x), int(s.y), int(s.size), s.value])
+        print(s)
         # pass
-        f = open('sample04.txt', 'a')
-        f.write('{0},{1},{2},{3}\n'.format(s.size, s.x, s.y, s.value))
-        f.close()
+        # f = open('sample04.txt', 'a')
+        # f.write('{0},{1},{2},{3}\n'.format(int(s.x), int(s.y), int(s.size), s.value))
+        # f.close()
 
 
 # 自顶向下分发size 和 y属性
@@ -91,29 +107,29 @@ def trans_size(s):
         s.child[1].size = shrink_size(s.size)
         s.child[2].size = shrink_size(s.size)
         s.child[0].y = s.y
-        s.child[1].y = s.y - shrink_y(s.size)
-        s.child[2].y = s.y + shrink_y(s.size)
+        s.child[1].y = s.y - shrink_y_down(s.size)
+        s.child[2].y = s.y + shrink_y_up(s.size)
     elif s.type == expression_type[4]:
         s.child[0].size = s.size
         s.child[1].size = shrink_size(s.size)
         s.child[0].y = s.y
-        s.child[1].y = s.y + shrink_y(s.size)
+        s.child[1].y = s.y + shrink_y_up(s.size)
     elif s.type == expression_type[5]:
         s.child[0].size = s.size
         s.child[1].size = shrink_size(s.size)
         s.child[0].y = s.y
-        s.child[1].y = s.y - shrink_size(s.size)
+        s.child[1].y = s.y - shrink_y_down(s.size)
     elif s.type == expression_type[6]:
         s.child[0].size = s.size
         s.child[0].y = s.y
     elif s.type == expression_type[7]:
         s.child[0].size = s.size
         s.child[0].y = s.y
-        s.child[0].width = s.child[0].size
+        s.child[0].width = shrink_width(s.child[0].size)
     elif s.type == expression_type[8]:
         s.child[0].size = s.size
         s.child[0].y = s.y
-        s.child[0].width = s.child[0].size
+        s.child[0].width = shrink_width(s.child[0].size)
     elif s.type == expression_type[9]:
         s.child[0].size = s.size
         s.child[0].y = s.y
@@ -144,9 +160,9 @@ def trans_width(s):
     elif s.type == expression_type[6]:
         s.width = s.child[0].width
     elif s.type == expression_type[7]:
-        s.width = s.child[0].size
+        s.width = s.child[0].width
     elif s.type == expression_type[8]:
-        s.width = s.child[0].size
+        s.width = s.child[0].width
     elif s.type == expression_type[9]:
         s.width = s.child[0].width
 
@@ -268,4 +284,60 @@ yacc.yacc()
 #         yacc.parse(s)
 #     except EOFError:
 #         break
-yacc.parse("$$a_{b_{c}}$$")
+yacc.parse("$$a_{2}$$")
+
+from PIL import Image, ImageFont, ImageDraw
+
+
+class Draw:
+    filename = ''
+    font_name = 'STIXGeneral.otf'  # 'Courier.dfont'
+    character_size = 50
+
+    im = Image.new('L', (500, 500), 255)
+    draw = ImageDraw.Draw(im)
+
+    def __init__(self, filename):
+        # super().__init__()
+        # with open(filename) as f:
+        #     data = f.readlines()
+        #     for line in data:
+        #         left, height, size, c = line.split(',')
+        #         c = c[:-1]
+        #         if c == '#int':
+        #             c = '∫'
+        #         if c == '#sum':
+        #             c = '∑'
+        #         font = ImageFont.truetype(self.font_name, size=int(size))
+        #         self.draw.text((int(left), 500-int(height)), c, font=font)
+        #     self.im.show()
+        #     self.im.close()
+        for line in l:
+            left, height, size, c = line
+            # c = c[:-1]
+            # if c == "#int":
+            #     c = "∫"
+            # if c == "#sum":
+            #     c = '∑'
+            if ord('a') <= ord(c) <= ord('z'):
+                # self.font_name = 'STIXGeneralItalic.otf'
+                self.font_name = 'Courier New Italic.ttf'
+                # self.font_name = 'consolai.ttf'
+            else:
+                # self.font_name = 'STIXGeneral.otf'
+                self.font_name = 'Courier New.ttf'
+                # self.font_name = 'Consolas.ttf'
+            font = ImageFont.truetype(self.font_name, size=int(size))
+            self.draw.text((int(left), 500 - int(height)), c, font=font)
+        # self.draw.line([0,250,50,250])
+        # self.draw.line([50,250,50,300])
+        # self.draw.line([30,250,30,300])
+        # self.draw.line([0,300,50,300])
+        # self.draw.line([0,215,100,215])
+        self.im.show()
+        self.im.close()
+
+
+if __name__ == '__main__':
+    d = Draw('sample04.txt')
+
