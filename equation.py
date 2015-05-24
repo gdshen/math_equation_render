@@ -28,12 +28,13 @@ class Symbol:
         self.value = value
 
     def __str__(self, *args, **kwargs):
-        return "size:{0} x:{1} y:{2} value:{3}  width:{4}".format(self.size, self.x, 500 - self.y, self.value,
-                                                                  self.width)
+        return "size:{0} x:{1} y:{2} value:{3}  width:{4}" \
+            .format(self.size, self.x, 500 - self.y, self.value, self.width)
 
 
-expression_type = ['p_s_b', 'p_b_tb', 'p_b_t', 'p_t_rbb', 'p_t_up', 'p_t_down', 'p_t_int', 'p_t_sum',
-                   'p_t_r', 'p_r_id', 'p_r_num', 'p_r_blank', 'p_r_b']
+expression_type = ['p_s_b', 'p_b_tb', 'p_b_t', 'p_t_rbb', 'p_t_up',
+                   'p_t_down','p_t_int', 'p_t_sum', 'p_t_r',
+                   'p_r_id', 'p_r_num', 'p_r_blank', 'p_r_b']
 
 # 正则表达式的特殊字符需要转义
 t_ID = r'[a-z]'
@@ -69,7 +70,8 @@ def trans_print(s):
         for i in range(len(s.child)):
             trans_print(s.child[i])
     else:
-        l.append(str(s.x) + ',' + str(500 - s.y) + ',' + str(s.size) + ',' + s.value + '\n')
+        l.append(str(s.x) + ',' + str(500 - s.y) + ','
+                 + str(s.size) + ',' + s.value + '\n')
 
 
 def shrink_size(size):
@@ -136,15 +138,16 @@ def trans_width(s):
             trans_width(s.child[i])
     if len(s.child) == 0:
         return
-    if s.value in [expression_type[0], expression_type[2], expression_type[8], expression_type[9],
-                   expression_type[10], expression_type[11]]:
+    if s.value in [expression_type[0], expression_type[2], expression_type[8],
+                   expression_type[9], expression_type[10], expression_type[11]]:
         s.width = s.child[0].width
     elif s.value in [expression_type[1], expression_type[4], expression_type[5]]:
         s.width = s.child[0].width + s.child[1].width
     elif s.value == expression_type[3]:
         s.width = s.child[0].width + max(s.child[1].width, s.child[2].width)
     elif s.value in [expression_type[6], expression_type[7]]:
-        s.width = s.child[0].width + max(s.child[1].width, s.child[2].width) + s.child[3].width
+        s.width = s.child[0].width +\
+                  max(s.child[1].width, s.child[2].width) + s.child[3].width
     elif s.value == expression_type[12]:
         s.width = s.child[0].width + s.child[1].width + s.child[2].width
 
@@ -161,7 +164,8 @@ def trans_x(s):
     elif s.value in [expression_type[6], expression_type[7]]:
         s.child[1].x = s.x + s.child[0].width
         s.child[2].x = s.x + s.child[0].width
-        s.child[3].x = s.x + s.child[0].width + max(s.child[1].width, s.child[2].width)
+        s.child[3].x = s.x + s.child[0].width +\
+                       max(s.child[1].width, s.child[2].width)
     elif s.value == expression_type[12]:
         s.child[1].x = s.x + s.child[0].width
         s.child[2].x = s.x + s.child[0].width + s.child[1].width
