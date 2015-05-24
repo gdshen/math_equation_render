@@ -1,10 +1,20 @@
-from pprint import pprint
-
-tokens = ('ID', 'NUM', 'US', 'CJ', 'LS', 'RS', 'DR', 'BK', 'LP', 'RP', 'INT', 'SUM')
-
+import argparse
 import ply.lex as lex
 import ply.yacc as yacc
 
+tokens = ('ID', 'NUM', 'US', 'CJ', 'LS', 'RS', 'DR', 'BK', 'LP', 'RP', 'INT', 'SUM')
+
+s = ''  # 存储从文件中读取到的字符串
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument("input_file")
+    parser.add_argument('output_file')
+    args = parser.parse_args()
+    input_file = args.input_file
+    output_file = args.output_file
+    with open(input_file) as f:
+        s = f.readline()
+        s = s[:-1]
 
 # define a Symbol class to represent the parse tree node
 class Symbol:
@@ -51,18 +61,15 @@ def t_error(t):
 lexer = lex.lex()
 
 # 以下是语法分析部分
-l = []
+l = []  # 存储节点信息
 
 # 遍历分析树
 def trans_print(s):
-    global l
-    # print(s)
     if len(s.child) != 0:
         for i in range(len(s.child)):
             trans_print(s.child[i])
     else:
-        l.append([int(s.x), int(s.y), int(s.size), s.value])
-        # print(s)
+        l.append(str(s.x) + ',' + str(500 - s.y) + ',' + str(s.size) + ',' + s.value + '\n')
 
 
 def shrink_size(size):
@@ -101,7 +108,7 @@ def trans_size(s):
         s.child[1].size = shrink_size(s.size)
         s.child[1].y = s.y - shrink_y_down(s.size)
     elif s.value in [expression_type[6], expression_type[7]]:
-        s.child[0].y = s.y + 0.1 * s.size  # 调节∑ ∫ 位置
+        s.child[0].y = s.y + 0.1 * s.size  # adjust ∑ ∫ 位置
         s.child[1].size = shrink_size(s.size)
         s.child[2].size = shrink_size(s.size)
         s.child[3].size = s.size
@@ -265,28 +272,8 @@ def p_error(t):
 
 
 yacc.yacc()
-yacc.parse("$$a^{b^{c^{2.1}}d}$$")
-pprint(l)
+yacc.parse(s)
 
-from PIL import Image, ImageFont, ImageDraw
-
-
-def draw():
-    font_name = 'Courier New.ttf'
-    im = Image.new('L', (500, 500), 255)
-    drawer = ImageDraw.Draw(im)
+with open(output_file, 'w') as f:
     for line in l:
-        left, height, size, c = line
-        if c == "#int":
-            c = "∫"
-        if c == "#sum":
-            c = '∑'
-        font = ImageFont.truetype(font_name, size=size)
-        drawer.text((left, 500 - height), c, font=font)
-    # drawer.line([0, 250, 50, 250])
-    im.show()
-    im.close()
-
-
-if __name__ == '__main__':
-    draw()
+        f.writelines(line)
