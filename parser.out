@@ -47,21 +47,21 @@ state 0
     (0) S' -> . s
     (1) s -> . DR DR b DR DR
 
-    DR              shift and go to state 1
+    DR              shift and go to state 2
 
-    s                              shift and go to state 2
+    s                              shift and go to state 1
 
 state 1
 
-    (1) s -> DR . DR b DR DR
+    (0) S' -> s .
 
-    DR              shift and go to state 3
 
 
 state 2
 
-    (0) S' -> s .
+    (1) s -> DR . DR b DR DR
 
+    DR              shift and go to state 3
 
 
 state 3
@@ -80,38 +80,18 @@ state 3
     (12) r -> . BK
     (13) r -> . LP b RP
 
-    INT             shift and go to state 6
-    SUM             shift and go to state 7
-    ID              shift and go to state 5
-    NUM             shift and go to state 9
-    BK              shift and go to state 10
-    LP              shift and go to state 12
+    INT             shift and go to state 9
+    SUM             shift and go to state 5
+    ID              shift and go to state 4
+    NUM             shift and go to state 7
+    BK              shift and go to state 12
+    LP              shift and go to state 10
 
     b                              shift and go to state 8
-    r                              shift and go to state 4
+    r                              shift and go to state 6
     t                              shift and go to state 11
 
 state 4
-
-    (4) t -> r . US CJ LS b RS LS b RS
-    (5) t -> r . CJ LS b RS
-    (6) t -> r . US LS b RS
-    (9) t -> r .
-
-    US              shift and go to state 14
-    CJ              shift and go to state 13
-    INT             reduce using rule 9 (t -> r .)
-    SUM             reduce using rule 9 (t -> r .)
-    ID              reduce using rule 9 (t -> r .)
-    NUM             reduce using rule 9 (t -> r .)
-    BK              reduce using rule 9 (t -> r .)
-    LP              reduce using rule 9 (t -> r .)
-    DR              reduce using rule 9 (t -> r .)
-    RS              reduce using rule 9 (t -> r .)
-    RP              reduce using rule 9 (t -> r .)
-
-
-state 5
 
     (10) r -> ID .
 
@@ -123,33 +103,39 @@ state 5
     NUM             reduce using rule 10 (r -> ID .)
     BK              reduce using rule 10 (r -> ID .)
     LP              reduce using rule 10 (r -> ID .)
-    RS              reduce using rule 10 (r -> ID .)
     DR              reduce using rule 10 (r -> ID .)
     RP              reduce using rule 10 (r -> ID .)
+    RS              reduce using rule 10 (r -> ID .)
+
+
+state 5
+
+    (8) t -> SUM . LS b RS LS b RS LS b RS
+
+    LS              shift and go to state 13
 
 
 state 6
 
-    (7) t -> INT . LS b RS LS b RS LS b RS
+    (4) t -> r . US CJ LS b RS LS b RS
+    (5) t -> r . CJ LS b RS
+    (6) t -> r . US LS b RS
+    (9) t -> r .
 
-    LS              shift and go to state 15
+    US              shift and go to state 14
+    CJ              shift and go to state 15
+    INT             reduce using rule 9 (t -> r .)
+    SUM             reduce using rule 9 (t -> r .)
+    ID              reduce using rule 9 (t -> r .)
+    NUM             reduce using rule 9 (t -> r .)
+    BK              reduce using rule 9 (t -> r .)
+    LP              reduce using rule 9 (t -> r .)
+    DR              reduce using rule 9 (t -> r .)
+    RP              reduce using rule 9 (t -> r .)
+    RS              reduce using rule 9 (t -> r .)
 
 
 state 7
-
-    (8) t -> SUM . LS b RS LS b RS LS b RS
-
-    LS              shift and go to state 16
-
-
-state 8
-
-    (1) s -> DR DR b . DR DR
-
-    DR              shift and go to state 17
-
-
-state 9
 
     (11) r -> NUM .
 
@@ -161,27 +147,51 @@ state 9
     NUM             reduce using rule 11 (r -> NUM .)
     BK              reduce using rule 11 (r -> NUM .)
     LP              reduce using rule 11 (r -> NUM .)
-    RS              reduce using rule 11 (r -> NUM .)
     DR              reduce using rule 11 (r -> NUM .)
     RP              reduce using rule 11 (r -> NUM .)
+    RS              reduce using rule 11 (r -> NUM .)
+
+
+state 8
+
+    (1) s -> DR DR b . DR DR
+
+    DR              shift and go to state 16
+
+
+state 9
+
+    (7) t -> INT . LS b RS LS b RS LS b RS
+
+    LS              shift and go to state 17
 
 
 state 10
 
-    (12) r -> BK .
+    (13) r -> LP . b RP
+    (2) b -> . t b
+    (3) b -> . t
+    (4) t -> . r US CJ LS b RS LS b RS
+    (5) t -> . r CJ LS b RS
+    (6) t -> . r US LS b RS
+    (7) t -> . INT LS b RS LS b RS LS b RS
+    (8) t -> . SUM LS b RS LS b RS LS b RS
+    (9) t -> . r
+    (10) r -> . ID
+    (11) r -> . NUM
+    (12) r -> . BK
+    (13) r -> . LP b RP
 
-    US              reduce using rule 12 (r -> BK .)
-    CJ              reduce using rule 12 (r -> BK .)
-    INT             reduce using rule 12 (r -> BK .)
-    SUM             reduce using rule 12 (r -> BK .)
-    ID              reduce using rule 12 (r -> BK .)
-    NUM             reduce using rule 12 (r -> BK .)
-    BK              reduce using rule 12 (r -> BK .)
-    LP              reduce using rule 12 (r -> BK .)
-    RS              reduce using rule 12 (r -> BK .)
-    DR              reduce using rule 12 (r -> BK .)
-    RP              reduce using rule 12 (r -> BK .)
+    INT             shift and go to state 9
+    SUM             shift and go to state 5
+    ID              shift and go to state 4
+    NUM             shift and go to state 7
+    BK              shift and go to state 12
+    LP              shift and go to state 10
 
+    b                              shift and go to state 18
+    r                              shift and go to state 6
+    t                              shift and go to state 11
 
 state 11
 
@@ -200,91 +210,38 @@ state 11
     (12) r -> . BK
     (13) r -> . LP b RP
 
+    RP              reduce using rule 3 (b -> t .)
     RS              reduce using rule 3 (b -> t .)
     DR              reduce using rule 3 (b -> t .)
-    RP              reduce using rule 3 (b -> t .)
-    INT             shift and go to state 6
-    SUM             shift and go to state 7
-    ID              shift and go to state 5
-    NUM             shift and go to state 9
-    BK              shift and go to state 10
-    LP              shift and go to state 12
+    INT             shift and go to state 9
+    SUM             shift and go to state 5
+    ID              shift and go to state 4
+    NUM             shift and go to state 7
+    BK              shift and go to state 12
+    LP              shift and go to state 10
 
-    b                              shift and go to state 18
-    r                              shift and go to state 4
+    b                              shift and go to state 19
+    r                              shift and go to state 6
     t                              shift and go to state 11
 
 state 12
 
-    (13) r -> LP . b RP
-    (2) b -> . t b
-    (3) b -> . t
-    (4) t -> . r US CJ LS b RS LS b RS
-    (5) t -> . r CJ LS b RS
-    (6) t -> . r US LS b RS
-    (7) t -> . INT LS b RS LS b RS LS b RS
-    (8) t -> . SUM LS b RS LS b RS LS b RS
-    (9) t -> . r
-    (10) r -> . ID
-    (11) r -> . NUM
-    (12) r -> . BK
-    (13) r -> . LP b RP
+    (12) r -> BK .
 
-    INT             shift and go to state 6
-    SUM             shift and go to state 7
-    ID              shift and go to state 5
-    NUM             shift and go to state 9
-    BK              shift and go to state 10
-    LP              shift and go to state 12
+    US              reduce using rule 12 (r -> BK .)
+    CJ              reduce using rule 12 (r -> BK .)
+    INT             reduce using rule 12 (r -> BK .)
+    SUM             reduce using rule 12 (r -> BK .)
+    ID              reduce using rule 12 (r -> BK .)
+    NUM             reduce using rule 12 (r -> BK .)
+    BK              reduce using rule 12 (r -> BK .)
+    LP              reduce using rule 12 (r -> BK .)
+    DR              reduce using rule 12 (r -> BK .)
+    RP              reduce using rule 12 (r -> BK .)
+    RS              reduce using rule 12 (r -> BK .)
 
-    b                              shift and go to state 19
-    r                              shift and go to state 4
-    t                              shift and go to state 11
 
 state 13
-
-    (5) t -> r CJ . LS b RS
-
-    LS              shift and go to state 20
-
-
-state 14
-
-    (4) t -> r US . CJ LS b RS LS b RS
-    (6) t -> r US . LS b RS
-
-    CJ              shift and go to state 21
-    LS              shift and go to state 22
-
-
-state 15
-
-    (7) t -> INT LS . b RS LS b RS LS b RS
-    (2) b -> . t b
-    (3) b -> . t
-    (4) t -> . r US CJ LS b RS LS b RS
-    (5) t -> . r CJ LS b RS
-    (6) t -> . r US LS b RS
-    (7) t -> . INT LS b RS LS b RS LS b RS
-    (8) t -> . SUM LS b RS LS b RS LS b RS
-    (9) t -> . r
-    (10) r -> . ID
-    (11) r -> . NUM
-    (12) r -> . BK
-    (13) r -> . LP b RP
-
-    INT             shift and go to state 6
-    SUM             shift and go to state 7
-    ID              shift and go to state 5
-    NUM             shift and go to state 9
-    BK              shift and go to state 10
-    LP              shift and go to state 12
-
-    b                              shift and go to state 23
-    r                              shift and go to state 4
-    t                              shift and go to state 11
-
-state 16
 
     (8) t -> SUM LS . b RS LS b RS LS b RS
     (2) b -> . t b
@@ -300,43 +257,43 @@ state 16
     (12) r -> . BK
     (13) r -> . LP b RP
 
-    INT             shift and go to state 6
-    SUM             shift and go to state 7
-    ID              shift and go to state 5
-    NUM             shift and go to state 9
-    BK              shift and go to state 10
-    LP              shift and go to state 12
+    INT             shift and go to state 9
+    SUM             shift and go to state 5
+    ID              shift and go to state 4
+    NUM             shift and go to state 7
+    BK              shift and go to state 12
+    LP              shift and go to state 10
 
-    b                              shift and go to state 24
-    r                              shift and go to state 4
+    b                              shift and go to state 20
+    r                              shift and go to state 6
     t                              shift and go to state 11
 
-state 17
+state 14
+
+    (4) t -> r US . CJ LS b RS LS b RS
+    (6) t -> r US . LS b RS
+
+    CJ              shift and go to state 22
+    LS              shift and go to state 21
+
+
+state 15
+
+    (5) t -> r CJ . LS b RS
+
+    LS              shift and go to state 23
+
+
+state 16
 
     (1) s -> DR DR b DR . DR
 
-    DR              shift and go to state 25
+    DR              shift and go to state 24
 
 
-state 18
+state 17
 
-    (2) b -> t b .
-
-    RS              reduce using rule 2 (b -> t b .)
-    DR              reduce using rule 2 (b -> t b .)
-    RP              reduce using rule 2 (b -> t b .)
-
-
-state 19
-
-    (13) r -> LP b . RP
-
-    RP              shift and go to state 26
-
-
-state 20
-
-    (5) t -> r CJ LS . b RS
+    (7) t -> INT LS . b RS LS b RS LS b RS
     (2) b -> . t b
     (3) b -> . t
     (4) t -> . r US CJ LS b RS LS b RS
@@ -350,25 +307,41 @@ state 20
     (12) r -> . BK
     (13) r -> . LP b RP
 
-    INT             shift and go to state 6
-    SUM             shift and go to state 7
-    ID              shift and go to state 5
-    NUM             shift and go to state 9
-    BK              shift and go to state 10
-    LP              shift and go to state 12
+    INT             shift and go to state 9
+    SUM             shift and go to state 5
+    ID              shift and go to state 4
+    NUM             shift and go to state 7
+    BK              shift and go to state 12
+    LP              shift and go to state 10
 
-    b                              shift and go to state 27
-    r                              shift and go to state 4
+    b                              shift and go to state 25
+    r                              shift and go to state 6
     t                              shift and go to state 11
 
+state 18
+
+    (13) r -> LP b . RP
+
+    RP              shift and go to state 26
+
+
+state 19
+
+    (2) b -> t b .
+
+    RP              reduce using rule 2 (b -> t b .)
+    RS              reduce using rule 2 (b -> t b .)
+    DR              reduce using rule 2 (b -> t b .)
+
+
+state 20
+
+    (8) t -> SUM LS b . RS LS b RS LS b RS
+
+    RS              shift and go to state 27
+
+
 state 21
-
-    (4) t -> r US CJ . LS b RS LS b RS
-
-    LS              shift and go to state 28
-
-
-state 22
 
     (6) t -> r US LS . b RS
     (2) b -> . t b
@@ -384,36 +357,63 @@ state 22
     (12) r -> . BK
     (13) r -> . LP b RP
 
-    INT             shift and go to state 6
-    SUM             shift and go to state 7
-    ID              shift and go to state 5
-    NUM             shift and go to state 9
-    BK              shift and go to state 10
-    LP              shift and go to state 12
+    INT             shift and go to state 9
+    SUM             shift and go to state 5
+    ID              shift and go to state 4
+    NUM             shift and go to state 7
+    BK              shift and go to state 12
+    LP              shift and go to state 10
 
-    b                              shift and go to state 29
-    r                              shift and go to state 4
+    b                              shift and go to state 28
     t                              shift and go to state 11
+    r                              shift and go to state 6
+
+state 22
+
+    (4) t -> r US CJ . LS b RS LS b RS
+
+    LS              shift and go to state 29
+
 
 state 23
 
-    (7) t -> INT LS b . RS LS b RS LS b RS
+    (5) t -> r CJ LS . b RS
+    (2) b -> . t b
+    (3) b -> . t
+    (4) t -> . r US CJ LS b RS LS b RS
+    (5) t -> . r CJ LS b RS
+    (6) t -> . r US LS b RS
+    (7) t -> . INT LS b RS LS b RS LS b RS
+    (8) t -> . SUM LS b RS LS b RS LS b RS
+    (9) t -> . r
+    (10) r -> . ID
+    (11) r -> . NUM
+    (12) r -> . BK
+    (13) r -> . LP b RP
 
-    RS              shift and go to state 30
+    INT             shift and go to state 9
+    SUM             shift and go to state 5
+    ID              shift and go to state 4
+    NUM             shift and go to state 7
+    BK              shift and go to state 12
+    LP              shift and go to state 10
 
+    b                              shift and go to state 30
+    t                              shift and go to state 11
+    r                              shift and go to state 6
 
 state 24
-
-    (8) t -> SUM LS b . RS LS b RS LS b RS
-
-    RS              shift and go to state 31
-
-
-state 25
 
     (1) s -> DR DR b DR DR .
 
     $end            reduce using rule 1 (s -> DR DR b DR DR .)
+
+
+state 25
+
+    (7) t -> INT LS b . RS LS b RS LS b RS
+
+    RS              shift and go to state 31
 
 
 state 26
@@ -428,19 +428,26 @@ state 26
     NUM             reduce using rule 13 (r -> LP b RP .)
     BK              reduce using rule 13 (r -> LP b RP .)
     LP              reduce using rule 13 (r -> LP b RP .)
-    RS              reduce using rule 13 (r -> LP b RP .)
     DR              reduce using rule 13 (r -> LP b RP .)
     RP              reduce using rule 13 (r -> LP b RP .)
+    RS              reduce using rule 13 (r -> LP b RP .)
 
 
 state 27
 
-    (5) t -> r CJ LS b . RS
+    (8) t -> SUM LS b RS . LS b RS LS b RS
 
-    RS              shift and go to state 32
+    LS              shift and go to state 32
 
 
 state 28
+
+    (6) t -> r US LS b . RS
+
+    RS              shift and go to state 33
+
+
+state 29
 
     (4) t -> r US CJ LS . b RS LS b RS
     (2) b -> . t b
@@ -456,103 +463,32 @@ state 28
     (12) r -> . BK
     (13) r -> . LP b RP
 
-    INT             shift and go to state 6
-    SUM             shift and go to state 7
-    ID              shift and go to state 5
-    NUM             shift and go to state 9
-    BK              shift and go to state 10
-    LP              shift and go to state 12
+    INT             shift and go to state 9
+    SUM             shift and go to state 5
+    ID              shift and go to state 4
+    NUM             shift and go to state 7
+    BK              shift and go to state 12
+    LP              shift and go to state 10
 
-    b                              shift and go to state 33
-    r                              shift and go to state 4
+    b                              shift and go to state 34
     t                              shift and go to state 11
-
-state 29
-
-    (6) t -> r US LS b . RS
-
-    RS              shift and go to state 34
-
+    r                              shift and go to state 6
 
 state 30
 
-    (7) t -> INT LS b RS . LS b RS LS b RS
+    (5) t -> r CJ LS b . RS
 
-    LS              shift and go to state 35
+    RS              shift and go to state 35
 
 
 state 31
 
-    (8) t -> SUM LS b RS . LS b RS LS b RS
+    (7) t -> INT LS b RS . LS b RS LS b RS
 
     LS              shift and go to state 36
 
 
 state 32
-
-    (5) t -> r CJ LS b RS .
-
-    INT             reduce using rule 5 (t -> r CJ LS b RS .)
-    SUM             reduce using rule 5 (t -> r CJ LS b RS .)
-    ID              reduce using rule 5 (t -> r CJ LS b RS .)
-    NUM             reduce using rule 5 (t -> r CJ LS b RS .)
-    BK              reduce using rule 5 (t -> r CJ LS b RS .)
-    LP              reduce using rule 5 (t -> r CJ LS b RS .)
-    DR              reduce using rule 5 (t -> r CJ LS b RS .)
-    RS              reduce using rule 5 (t -> r CJ LS b RS .)
-    RP              reduce using rule 5 (t -> r CJ LS b RS .)
-
-
-state 33
-
-    (4) t -> r US CJ LS b . RS LS b RS
-
-    RS              shift and go to state 37
-
-
-state 34
-
-    (6) t -> r US LS b RS .
-
-    INT             reduce using rule 6 (t -> r US LS b RS .)
-    SUM             reduce using rule 6 (t -> r US LS b RS .)
-    ID              reduce using rule 6 (t -> r US LS b RS .)
-    NUM             reduce using rule 6 (t -> r US LS b RS .)
-    BK              reduce using rule 6 (t -> r US LS b RS .)
-    LP              reduce using rule 6 (t -> r US LS b RS .)
-    DR              reduce using rule 6 (t -> r US LS b RS .)
-    RS              reduce using rule 6 (t -> r US LS b RS .)
-    RP              reduce using rule 6 (t -> r US LS b RS .)
-
-
-state 35
-
-    (7) t -> INT LS b RS LS . b RS LS b RS
-    (2) b -> . t b
-    (3) b -> . t
-    (4) t -> . r US CJ LS b RS LS b RS
-    (5) t -> . r CJ LS b RS
-    (6) t -> . r US LS b RS
-    (7) t -> . INT LS b RS LS b RS LS b RS
-    (8) t -> . SUM LS b RS LS b RS LS b RS
-    (9) t -> . r
-    (10) r -> . ID
-    (11) r -> . NUM
-    (12) r -> . BK
-    (13) r -> . LP b RP
-
-    INT             shift and go to state 6
-    SUM             shift and go to state 7
-    ID              shift and go to state 5
-    NUM             shift and go to state 9
-    BK              shift and go to state 10
-    LP              shift and go to state 12
-
-    b                              shift and go to state 38
-    r                              shift and go to state 4
-    t                              shift and go to state 11
-
-state 36
 
     (8) t -> SUM LS b RS LS . b RS LS b RS
     (2) b -> . t b
@@ -568,39 +504,110 @@ state 36
     (12) r -> . BK
     (13) r -> . LP b RP
 
-    INT             shift and go to state 6
-    SUM             shift and go to state 7
-    ID              shift and go to state 5
-    NUM             shift and go to state 9
-    BK              shift and go to state 10
-    LP              shift and go to state 12
+    INT             shift and go to state 9
+    SUM             shift and go to state 5
+    ID              shift and go to state 4
+    NUM             shift and go to state 7
+    BK              shift and go to state 12
+    LP              shift and go to state 10
+
+    b                              shift and go to state 37
+    r                              shift and go to state 6
+    t                              shift and go to state 11
+
+state 33
+
+    (6) t -> r US LS b RS .
+
+    INT             reduce using rule 6 (t -> r US LS b RS .)
+    SUM             reduce using rule 6 (t -> r US LS b RS .)
+    ID              reduce using rule 6 (t -> r US LS b RS .)
+    NUM             reduce using rule 6 (t -> r US LS b RS .)
+    BK              reduce using rule 6 (t -> r US LS b RS .)
+    LP              reduce using rule 6 (t -> r US LS b RS .)
+    DR              reduce using rule 6 (t -> r US LS b RS .)
+    RP              reduce using rule 6 (t -> r US LS b RS .)
+    RS              reduce using rule 6 (t -> r US LS b RS .)
+
+
+state 34
+
+    (4) t -> r US CJ LS b . RS LS b RS
+
+    RS              shift and go to state 38
+
+
+state 35
+
+    (5) t -> r CJ LS b RS .
+
+    INT             reduce using rule 5 (t -> r CJ LS b RS .)
+    SUM             reduce using rule 5 (t -> r CJ LS b RS .)
+    ID              reduce using rule 5 (t -> r CJ LS b RS .)
+    NUM             reduce using rule 5 (t -> r CJ LS b RS .)
+    BK              reduce using rule 5 (t -> r CJ LS b RS .)
+    LP              reduce using rule 5 (t -> r CJ LS b RS .)
+    DR              reduce using rule 5 (t -> r CJ LS b RS .)
+    RP              reduce using rule 5 (t -> r CJ LS b RS .)
+    RS              reduce using rule 5 (t -> r CJ LS b RS .)
+
+
+state 36
+
+    (7) t -> INT LS b RS LS . b RS LS b RS
+    (2) b -> . t b
+    (3) b -> . t
+    (4) t -> . r US CJ LS b RS LS b RS
+    (5) t -> . r CJ LS b RS
+    (6) t -> . r US LS b RS
+    (7) t -> . INT LS b RS LS b RS LS b RS
+    (8) t -> . SUM LS b RS LS b RS LS b RS
+    (9) t -> . r
+    (10) r -> . ID
+    (11) r -> . NUM
+    (12) r -> . BK
+    (13) r -> . LP b RP
+
+    INT             shift and go to state 9
+    SUM             shift and go to state 5
+    ID              shift and go to state 4
+    NUM             shift and go to state 7
+    BK              shift and go to state 12
+    LP              shift and go to state 10
 
     b                              shift and go to state 39
-    r                              shift and go to state 4
+    r                              shift and go to state 6
     t                              shift and go to state 11
 
 state 37
 
-    (4) t -> r US CJ LS b RS . LS b RS
+    (8) t -> SUM LS b RS LS b . RS LS b RS
 
-    LS              shift and go to state 40
+    RS              shift and go to state 40
 
 
 state 38
 
-    (7) t -> INT LS b RS LS b . RS LS b RS
+    (4) t -> r US CJ LS b RS . LS b RS
 
-    RS              shift and go to state 41
+    LS              shift and go to state 41
 
 
 state 39
 
-    (8) t -> SUM LS b RS LS b . RS LS b RS
+    (7) t -> INT LS b RS LS b . RS LS b RS
 
     RS              shift and go to state 42
 
 
 state 40
+
+    (8) t -> SUM LS b RS LS b RS . LS b RS
+
+    LS              shift and go to state 43
+
+
+state 41
 
     (4) t -> r US CJ LS b RS LS . b RS
     (2) b -> . t b
@@ -616,66 +623,25 @@ state 40
     (12) r -> . BK
     (13) r -> . LP b RP
 
-    INT             shift and go to state 6
-    SUM             shift and go to state 7
-    ID              shift and go to state 5
-    NUM             shift and go to state 9
-    BK              shift and go to state 10
-    LP              shift and go to state 12
+    INT             shift and go to state 9
+    SUM             shift and go to state 5
+    ID              shift and go to state 4
+    NUM             shift and go to state 7
+    BK              shift and go to state 12
+    LP              shift and go to state 10
 
-    b                              shift and go to state 43
-    r                              shift and go to state 4
+    b                              shift and go to state 44
     t                              shift and go to state 11
-
-state 41
-
-    (7) t -> INT LS b RS LS b RS . LS b RS
-
-    LS              shift and go to state 44
-
+    r                              shift and go to state 6
 
 state 42
 
-    (8) t -> SUM LS b RS LS b RS . LS b RS
+    (7) t -> INT LS b RS LS b RS . LS b RS
 
     LS              shift and go to state 45
 
 
 state 43
-
-    (4) t -> r US CJ LS b RS LS b . RS
-
-    RS              shift and go to state 46
-
-
-state 44
-
-    (7) t -> INT LS b RS LS b RS LS . b RS
-    (2) b -> . t b
-    (3) b -> . t
-    (4) t -> . r US CJ LS b RS LS b RS
-    (5) t -> . r CJ LS b RS
-    (6) t -> . r US LS b RS
-    (7) t -> . INT LS b RS LS b RS LS b RS
-    (8) t -> . SUM LS b RS LS b RS LS b RS
-    (9) t -> . r
-    (10) r -> . ID
-    (11) r -> . NUM
-    (12) r -> . BK
-    (13) r -> . LP b RP
-
-    INT             shift and go to state 6
-    SUM             shift and go to state 7
-    ID              shift and go to state 5
-    NUM             shift and go to state 9
-    BK              shift and go to state 10
-    LP              shift and go to state 12
-
-    b                              shift and go to state 47
-    r                              shift and go to state 4
-    t                              shift and go to state 11
-
-state 45
 
     (8) t -> SUM LS b RS LS b RS LS . b RS
     (2) b -> . t b
@@ -691,18 +657,59 @@ state 45
     (12) r -> . BK
     (13) r -> . LP b RP
 
-    INT             shift and go to state 6
-    SUM             shift and go to state 7
-    ID              shift and go to state 5
-    NUM             shift and go to state 9
-    BK              shift and go to state 10
-    LP              shift and go to state 12
+    INT             shift and go to state 9
+    SUM             shift and go to state 5
+    ID              shift and go to state 4
+    NUM             shift and go to state 7
+    BK              shift and go to state 12
+    LP              shift and go to state 10
+
+    b                              shift and go to state 46
+    r                              shift and go to state 6
+    t                              shift and go to state 11
+
+state 44
+
+    (4) t -> r US CJ LS b RS LS b . RS
+
+    RS              shift and go to state 47
+
+
+state 45
+
+    (7) t -> INT LS b RS LS b RS LS . b RS
+    (2) b -> . t b
+    (3) b -> . t
+    (4) t -> . r US CJ LS b RS LS b RS
+    (5) t -> . r CJ LS b RS
+    (6) t -> . r US LS b RS
+    (7) t -> . INT LS b RS LS b RS LS b RS
+    (8) t -> . SUM LS b RS LS b RS LS b RS
+    (9) t -> . r
+    (10) r -> . ID
+    (11) r -> . NUM
+    (12) r -> . BK
+    (13) r -> . LP b RP
+
+    INT             shift and go to state 9
+    SUM             shift and go to state 5
+    ID              shift and go to state 4
+    NUM             shift and go to state 7
+    BK              shift and go to state 12
+    LP              shift and go to state 10
 
     b                              shift and go to state 48
-    r                              shift and go to state 4
+    r                              shift and go to state 6
     t                              shift and go to state 11
 
 state 46
+
+    (8) t -> SUM LS b RS LS b RS LS b . RS
+
+    RS              shift and go to state 49
+
+
+state 47
 
     (4) t -> r US CJ LS b RS LS b RS .
 
@@ -713,40 +720,18 @@ state 46
     BK              reduce using rule 4 (t -> r US CJ LS b RS LS b RS .)
     LP              reduce using rule 4 (t -> r US CJ LS b RS LS b RS .)
     DR              reduce using rule 4 (t -> r US CJ LS b RS LS b RS .)
-    RS              reduce using rule 4 (t -> r US CJ LS b RS LS b RS .)
     RP              reduce using rule 4 (t -> r US CJ LS b RS LS b RS .)
-
-
-state 47
-
-    (7) t -> INT LS b RS LS b RS LS b . RS
-
-    RS              shift and go to state 49
+    RS              reduce using rule 4 (t -> r US CJ LS b RS LS b RS .)
 
 
 state 48
 
-    (8) t -> SUM LS b RS LS b RS LS b . RS
+    (7) t -> INT LS b RS LS b RS LS b . RS
 
     RS              shift and go to state 50
 
 
 state 49
-
-    (7) t -> INT LS b RS LS b RS LS b RS .
-
-    INT             reduce using rule 7 (t -> INT LS b RS LS b RS LS b RS .)
-    SUM             reduce using rule 7 (t -> INT LS b RS LS b RS LS b RS .)
-    ID              reduce using rule 7 (t -> INT LS b RS LS b RS LS b RS .)
-    NUM             reduce using rule 7 (t -> INT LS b RS LS b RS LS b RS .)
-    BK              reduce using rule 7 (t -> INT LS b RS LS b RS LS b RS .)
-    LP              reduce using rule 7 (t -> INT LS b RS LS b RS LS b RS .)
-    DR              reduce using rule 7 (t -> INT LS b RS LS b RS LS b RS .)
-    RS              reduce using rule 7 (t -> INT LS b RS LS b RS LS b RS .)
-    RP              reduce using rule 7 (t -> INT LS b RS LS b RS LS b RS .)
-
-
-state 50
 
     (8) t -> SUM LS b RS LS b RS LS b RS .
 
@@ -757,6 +742,21 @@ state 50
     BK              reduce using rule 8 (t -> SUM LS b RS LS b RS LS b RS .)
     LP              reduce using rule 8 (t -> SUM LS b RS LS b RS LS b RS .)
     DR              reduce using rule 8 (t -> SUM LS b RS LS b RS LS b RS .)
-    RS              reduce using rule 8 (t -> SUM LS b RS LS b RS LS b RS .)
     RP              reduce using rule 8 (t -> SUM LS b RS LS b RS LS b RS .)
+    RS              reduce using rule 8 (t -> SUM LS b RS LS b RS LS b RS .)
+
+
+state 50
+
+    (7) t -> INT LS b RS LS b RS LS b RS .
+
+    INT             reduce using rule 7 (t -> INT LS b RS LS b RS LS b RS .)
+    SUM             reduce using rule 7 (t -> INT LS b RS LS b RS LS b RS .)
+    ID              reduce using rule 7 (t -> INT LS b RS LS b RS LS b RS .)
+    NUM             reduce using rule 7 (t -> INT LS b RS LS b RS LS b RS .)
+    BK              reduce using rule 7 (t -> INT LS b RS LS b RS LS b RS .)
+    LP              reduce using rule 7 (t -> INT LS b RS LS b RS LS b RS .)
+    DR              reduce using rule 7 (t -> INT LS b RS LS b RS LS b RS .)
+    RP              reduce using rule 7 (t -> INT LS b RS LS b RS LS b RS .)
+    RS              reduce using rule 7 (t -> INT LS b RS LS b RS LS b RS .)
 

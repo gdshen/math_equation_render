@@ -1,10 +1,11 @@
+from pprint import pprint
+
 tokens = ('ID', 'NUM', 'US', 'CJ', 'LS', 'RS', 'DR', 'BK', 'LP', 'RP', 'INT', 'SUM')
 
 import ply.lex as lex
 import ply.yacc as yacc
 
 
-# todo to use different resolve method in num and id
 # define a Symbol class to represent the parse tree node
 class Symbol:
     def __init__(self, size=100.0, value=None):
@@ -41,6 +42,15 @@ t_SUM = r'\\sum'
 # 空白字符忽略
 t_ignore = " \t"
 
+
+def t_error(t):
+    print("发现非法字符 '{0}'".format(t.value[0]))
+    t.lexer.skip(1)
+
+# 构建词法分析器
+lexer = lex.lex()
+
+# 以下是语法分析部分
 l = []
 
 # 遍历分析树
@@ -52,22 +62,116 @@ def trans_print(s):
             trans_print(s.child[i])
     else:
         l.append([int(s.x), int(s.y), int(s.size), s.value])
-        print(s)
+        # print(s)
 
 
-def t_error(t):
-    print("发现非法字符 '{0}'".format(t.value[0]))
-    t.lexer.skip(1)
+def shrink_size(size):
+    return size * 0.5
 
-# 构建词法分析器
-lexer = lex.lex()
 
-# todo 计算属性
+def shrink_y_down(size):
+    return size * (1 - 0.5)
+
+
+def shrink_y_up(size):
+    return size * (0 / 2)
+
+
+def shrink_width(size):
+    return 0.6 * size
+
+
+def trans_size(s):
+    if len(s.child) == 0:
+        return
+    s.child[0].size = s.size
+    s.child[0].y = s.y
+    if s.value == expression_type[1]:
+        s.child[1].size = s.size
+        s.child[1].y = s.y
+    elif s.value == expression_type[3]:
+        s.child[1].size = shrink_size(s.size)
+        s.child[2].size = shrink_size(s.size)
+        s.child[1].y = s.y - shrink_y_down(s.size)
+        s.child[2].y = s.y + shrink_y_up(s.size)
+    elif s.value == expression_type[4]:
+        s.child[1].size = shrink_size(s.size)
+        s.child[1].y = s.y + shrink_y_up(s.size)
+    elif s.value == expression_type[5]:
+        s.child[1].size = shrink_size(s.size)
+        s.child[1].y = s.y - shrink_y_down(s.size)
+    elif s.value in [expression_type[6], expression_type[7]]:
+        s.child[0].y = s.y + 0.1 * s.size  # 调节∑ ∫ 位置
+        s.child[1].size = shrink_size(s.size)
+        s.child[2].size = shrink_size(s.size)
+        s.child[3].size = s.size
+        s.child[1].y = s.y - shrink_y_down(s.size)
+        s.child[2].y = s.y + shrink_y_up(s.size)
+        s.child[3].y = s.y
+        s.child[0].width = shrink_width(s.child[0].size)
+    elif s.value in [expression_type[9], expression_type[10], expression_type[11]]:
+        s.child[0].width = shrink_width(s.child[0].size)
+    elif s.value == expression_type[12]:
+        s.child[1].size = s.size
+        s.child[2].size = s.size
+        s.child[1].y = s.y
+        s.child[2].y = s.y
+        s.child[0].width = shrink_width(s.child[0].size)
+        s.child[2].width = shrink_width(s.child[2].size)
+    if len(s.child) != 0:
+        for i in range(len(s.child)):
+            trans_size(s.child[i])
+
+
+def trans_width(s):
+    if len(s.child) != 0:
+        for i in range(len(s.child)):
+            trans_width(s.child[i])
+    if len(s.child) == 0:
+        return
+    if s.value in [expression_type[0], expression_type[2], expression_type[8], expression_type[9],
+                   expression_type[10], expression_type[11]]:
+        s.width = s.child[0].width
+    elif s.value in [expression_type[1], expression_type[4], expression_type[5]]:
+        s.width = s.child[0].width + s.child[1].width
+    elif s.value == expression_type[3]:
+        s.width = s.child[0].width + max(s.child[1].width, s.child[2].width)
+    elif s.value in [expression_type[6], expression_type[7]]:
+        s.width = s.child[0].width + max(s.child[1].width, s.child[2].width) + s.child[3].width
+    elif s.value == expression_type[12]:
+        s.width = s.child[0].width + s.child[1].width + s.child[2].width
+
+
+def trans_x(s):
+    if len(s.child) == 0:
+        return
+    s.child[0].x = s.x
+    if s.value in [expression_type[1], expression_type[4], expression_type[5]]:
+        s.child[1].x = s.x + s.child[0].width
+    elif s.value == expression_type[3]:
+        s.child[1].x = s.x + s.child[0].width
+        s.child[2].x = s.x + s.child[0].width
+    elif s.value in [expression_type[6], expression_type[7]]:
+        s.child[1].x = s.x + s.child[0].width
+        s.child[2].x = s.x + s.child[0].width
+        s.child[3].x = s.x + s.child[0].width + max(s.child[1].width, s.child[2].width)
+    elif s.value == expression_type[12]:
+        s.child[1].x = s.x + s.child[0].width
+        s.child[2].x = s.x + s.child[0].width + s.child[1].width
+    if len(s.child) != 0:
+        for i in range(len(s.child)):
+            trans_x(s.child[i])
+
 
 def p_s_b(p):
     """s : DR DR b DR DR"""
     p[0] = Symbol(value=expression_type[0])
     p[0].child.append(p[3])
+    p[0].y = 250
+
+    trans_size(p[0])
+    trans_width(p[0])
+    trans_x(p[0])
     trans_print(p[0])
 
 
@@ -161,4 +265,28 @@ def p_error(t):
 
 
 yacc.yacc()
-yacc.parse("$$a^{b}$$")
+yacc.parse("$$a^{b^{c^{2.1}}d}$$")
+pprint(l)
+
+from PIL import Image, ImageFont, ImageDraw
+
+
+def draw():
+    font_name = 'Courier New.ttf'  # 'Courier.dfont'
+    im = Image.new('L', (500, 500), 255)
+    drawer = ImageDraw.Draw(im)
+    for line in l:
+        left, height, size, c = line
+        if c == "#int":
+            c = "∫"
+        if c == "#sum":
+            c = '∑'
+        font = ImageFont.truetype(font_name, size=size)
+        drawer.text((left, 500 - height), c, font=font)
+    # drawer.line([0, 250, 50, 250])
+    im.show()
+    im.close()
+
+
+if __name__ == '__main__':
+    draw()

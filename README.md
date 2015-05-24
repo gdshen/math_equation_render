@@ -17,3 +17,8 @@
 4. read until EOF
 5. read from file(use readlines)
 6. wrap draw as class
+
+## 不同的字体使用的绘制方法不一样，有种被坑的感觉
+对于STIX，是默认字体在左下角
+1. 先做针对Courier New 这种完美居中的字体的代码
+2. 在做针对STIX这种完美左下的字体的代码

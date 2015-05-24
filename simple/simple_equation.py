@@ -35,7 +35,7 @@ expression_type = ['p_s_b', 'p_b_tb', 'p_b_t', 'p_b_up_down', 'p_t_up', 'p_b_dow
 
 
 class Symbol:
-    def __init__(self, size=100.0, symbol_type="terminal", value=None):
+    def __init__(self, size=50.0, symbol_type="terminal", value=None):
         self.size = size
         self.width = 0
         self.x = 0
@@ -51,18 +51,18 @@ class Symbol:
 
 
 def shrink_size(size):
-    return 0.8 * size
+    return 0.4 * size
 
 
 def shrink_y_up(y):
-    return 0.2 * y
+    return -0.2 * y
 
 def shrink_y_down(y):
-    return 0.4 * y
+    return 0.8 * y
 
 
 def shrink_width(width):
-    return 0.5 * width
+    return 0.6 * width
 
 # todo 针对数字单独做处理
 def shrink_number(size):
@@ -284,7 +284,7 @@ yacc.yacc()
 #         yacc.parse(s)
 #     except EOFError:
 #         break
-yacc.parse("$$a_^{b^{c}}{d}$$")
+yacc.parse("$$abcdefghijk^{d}$$")
 
 from PIL import Image, ImageFont, ImageDraw
 
@@ -320,16 +320,18 @@ class Draw:
             # if c == "#sum":
             #     c = '∑'
             if ord('a') <= ord(c) <= ord('z'):
-                self.font_name = 'STIXGeneralItalic.otf'
-                # self.font_name = 'Courier New Italic.ttf'
+                # self.font_name = 'STIXGeneralItalic.otf'
+                self.font_name = 'Courier New.ttf'
                 # self.font_name = 'consolai.ttf'
             else:
-                self.font_name = 'STIXGeneral.otf'
-                # self.font_name = 'Courier New.ttf'
+                # self.font_name = 'STIXGeneral.otf'
+                self.font_name = 'Courier New.ttf'
                 # self.font_name = 'Consolas.ttf'
             font = ImageFont.truetype(self.font_name, size=int(size))
-            self.draw.text((int(left), 500 - int(height)), c, font=font)
-        # self.draw.line([0,250,50,250])
+            self.draw.text((int(left), int(height)), c, font=font)
+        self.draw.line([0,250,50,250])
+        self.draw.line([0,310,50,310])
+        self.draw.line([0,360,50,360])
         # self.draw.line([50,250,50,300])
         # self.draw.line([30,250,30,300])
         # self.draw.line([0,300,50,300])
