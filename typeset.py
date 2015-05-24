@@ -16,6 +16,8 @@ def draw(file_name):
                 c = "∫"
             if c == "#sum":
                 c = '∑'
+            if c == "\\blank":
+                c = ' '
             font = ImageFont.truetype(font_name, size=int(float(size)))
             drawer.text((int(float(left)), int(float(height))), c, font=font)
     # drawer.line([0, 250, 50, 250])

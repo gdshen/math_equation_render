@@ -6,6 +6,7 @@ tokens = ('ID', 'NUM', 'US', 'CJ', 'LS', 'RS', 'DR', 'BK', 'LP', 'RP', 'INT', 'S
 
 s = ''  # 存储从文件中读取到的字符串
 if __name__ == '__main__':
+    # 解析命令行参数
     parser_arg = argparse.ArgumentParser()
     parser_arg.add_argument("input_file")
     parser_arg.add_argument('output_file')
@@ -24,7 +25,6 @@ class Symbol:
         self.x = 0
         self.y = 0
         self.child = []
-        # only leaf node have this value, in the middle node, we use this field to represent the type of the expression
         self.value = value
 
     def __str__(self, *args, **kwargs):
@@ -32,8 +32,8 @@ class Symbol:
                                                                   self.width)
 
 
-expression_type = ['p_s_b', 'p_b_tb', 'p_b_t', 'p_t_rbb', 'p_t_up', 'p_t_down', 'p_t_int', 'p_t_sum', 'p_t_r',
-                   'p_r_id', 'p_r_num', 'p_r_blank', 'p_r_b']
+expression_type = ['p_s_b', 'p_b_tb', 'p_b_t', 'p_t_rbb', 'p_t_up', 'p_t_down', 'p_t_int', 'p_t_sum',
+                   'p_t_r', 'p_r_id', 'p_r_num', 'p_r_blank', 'p_r_b']
 
 # 正则表达式的特殊字符需要转义
 t_ID = r'[a-z]'
