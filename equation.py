@@ -272,7 +272,7 @@ from PIL import Image, ImageFont, ImageDraw
 
 
 def draw():
-    font_name = 'Courier New.ttf'  # 'Courier.dfont'
+    font_name = 'Courier New.ttf'
     im = Image.new('L', (500, 500), 255)
     drawer = ImageDraw.Draw(im)
     for line in l:

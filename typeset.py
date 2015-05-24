@@ -1,32 +1,31 @@
-""" 积分号 option + b ∫
-    求和号 option + w ∑
-"""
+import argparse
 from PIL import Image, ImageFont, ImageDraw
 
 
-class Draw:
-    filename = ''
-    font_name = 'STIXGeneral.otf'  # 'Courier.dfont'
-    character_size = 50
-
+def draw(file_name):
+    font_name = 'Courier New.ttf'
     im = Image.new('L', (500, 500), 255)
-    draw = ImageDraw.Draw(im)
+    drawer = ImageDraw.Draw(im)
+    with open(file_name) as f:
+        l = f.readlines()
+        print(l)
+        for line in l:
+            left, height, size, c = line.split(',')
+            c = c[:-1]
+            if c == "#int":
+                c = "∫"
+            if c == "#sum":
+                c = '∑'
+            font = ImageFont.truetype(font_name, size=int(float(size)))
+            drawer.text((int(float(left)), int(float(height))), c, font=font)
+    # drawer.line([0, 250, 50, 250])
+    im.show()
+    im.close()
 
-    def __init__(self, filename):
-        super().__init__()
-        with open(filename) as f:
-            data = f.readlines()
-            for line in data:
-                left, height, size, c = line.split(',')
-                c = c[:-1]
-                if c == '#int':
-                    c = '∫'
-                if c == '#sum':
-                    c = '∑'
-                font = ImageFont.truetype(self.font_name, size=int(size))
-                self.draw.text((int(left), int(height)), c, font=font)
-            self.im.show()
-            self.im.close()
 
 if __name__ == '__main__':
-    d = Draw('./simple/sample04.txt')
+    parser = argparse.ArgumentParser()
+    parser.add_argument("filename")
+    args = parser.parse_args()
+    filename = args.filename
+    draw(filename)
