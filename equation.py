@@ -6,10 +6,10 @@ tokens = ('ID', 'NUM', 'US', 'CJ', 'LS', 'RS', 'DR', 'BK', 'LP', 'RP', 'INT', 'S
 
 s = ''  # 存储从文件中读取到的字符串
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument("input_file")
-    parser.add_argument('output_file')
-    args = parser.parse_args()
+    parser_arg = argparse.ArgumentParser()
+    parser_arg.add_argument("input_file")
+    parser_arg.add_argument('output_file')
+    args = parser_arg.parse_args()
     input_file = args.input_file
     output_file = args.output_file
     with open(input_file) as f:
@@ -52,9 +52,9 @@ t_SUM = r'\\sum'
 # 空白字符忽略
 t_ignore = " \t"
 
-
+#
 def t_error(t):
-    print("发现非法字符 '{0}'".format(t.value[0]))
+    print("在{1}发现非法字符 '{0}'".format(t.value[0], t.lexpos))
     t.lexer.skip(1)
 
 # 构建词法分析器
@@ -267,12 +267,17 @@ def p_r_b(p):
     p[0].child.append(Symbol(value=p[3]))
 
 
-def p_error(t):
-    print("Syntax error at '%s'" % t.value)
+def p_error(p):
+    if p:
+        print("Syntax error at token {0}".format(p.type))
+        # Just discard the token and tell the parser it's okay.
+        parser.errok()
+    else:
+        print("Syntax error at EOF")
 
 
-yacc.yacc()
-yacc.parse(s)
+parser = yacc.yacc()
+parser.parse(s)
 
 with open(output_file, 'w') as f:
     for line in l:
