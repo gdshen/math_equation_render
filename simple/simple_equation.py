@@ -284,7 +284,7 @@ yacc.yacc()
 #         yacc.parse(s)
 #     except EOFError:
 #         break
-yacc.parse("$$a_{2}$$")
+yacc.parse("$$a_^{b^{c}}{d}$$")
 
 from PIL import Image, ImageFont, ImageDraw
 
@@ -320,12 +320,12 @@ class Draw:
             # if c == "#sum":
             #     c = '∑'
             if ord('a') <= ord(c) <= ord('z'):
-                # self.font_name = 'STIXGeneralItalic.otf'
-                self.font_name = 'Courier New Italic.ttf'
+                self.font_name = 'STIXGeneralItalic.otf'
+                # self.font_name = 'Courier New Italic.ttf'
                 # self.font_name = 'consolai.ttf'
             else:
-                # self.font_name = 'STIXGeneral.otf'
-                self.font_name = 'Courier New.ttf'
+                self.font_name = 'STIXGeneral.otf'
+                # self.font_name = 'Courier New.ttf'
                 # self.font_name = 'Consolas.ttf'
             font = ImageFont.truetype(self.font_name, size=int(size))
             self.draw.text((int(left), 500 - int(height)), c, font=font)
